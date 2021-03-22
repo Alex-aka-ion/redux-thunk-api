@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import ServiceAdd from "./components/ServiceAdd";
+import ServiceList from "./components/ServiceList";
+import ServiceFilter from "./components/ServiceFilter";
+import {Route, BrowserRouter as Router, Redirect} from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div>
+                <Route path="/" exact>
+                    <Redirect to="/services/"/>
+                </Route>
+                <Route path="/services/" exact>
+                    <ServiceFilter/>
+                    <ServiceList/>
+                </Route>
+                <Route path="/services/new" exact component={ServiceAdd}/>
+                <Route path="/services/:id(\d+)">
+                    <ServiceAdd/>
+                </Route>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
